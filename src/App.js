@@ -1,15 +1,17 @@
 import React, { useEffect, useState} from 'react';
-import './App.css'
+import './App.css';
 import tmdb from './tmdb';
 import MovieRow from './componets/MovieRow';
 import FeaturedMovie from './componets/FeaturedMovie';
-
+import Header from './componets/Header';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
 
   const [ movieList, setMovieList ] = useState([]);
-  const [ featuredData, setFeaturedData ] = useState(null)
+  const [ featuredData, setFeaturedData ] = useState(null);
+  const [ blackHeader, setBlackHeader ] = useState(false);
+
 
   useEffect(() => {
     const loadAll = async () => {
@@ -31,14 +33,37 @@ export default () => {
 
     loadAll();
   }, []);
+
+  useEffect(()=>{
+    const scrollListener = () =>{
+      if(window.scrollY > 10){
+        console.log(window.scrollY>10)
+        setBlackHeader(true);
+      } else {
+        setBlackHeader(false);
+      }
+    }
+
+
+    window.addEventListener('scroll', scrollListener);
+
+    return () => {
+      window.removeEventListener('scroll', scrollListener);
+    }
+
+  }, []);
+
   return (
+
     <div className='page'>
+
+      <Header black={blackHeader} />
 
       {featuredData &&
         <FeaturedMovie item={featuredData}/>
       }
 
-      <section className='lista'>
+      <section className='list'>
         {movieList.map((item, key)=>(
           <MovieRow key={key} title={item.title} items={item.items}/>
         ))}
