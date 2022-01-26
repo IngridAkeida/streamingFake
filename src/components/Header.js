@@ -2,7 +2,7 @@ import React from "react";
 import './Header.css';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({black}) =>{
+export default ({black}) => {
     return(
         <header className={black ? 'black' : ''}>
             <div className="header--logo">
@@ -17,6 +17,7 @@ export default ({black}) =>{
                 </a>
             </div>
         </header>
+        
     );
 }
 

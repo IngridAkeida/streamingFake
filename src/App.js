@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import tmdb from './Tmdb';
 import MovieRow from './components/MovieRow';
@@ -37,14 +37,12 @@ export default () => {
   useEffect(()=>{
     const scrollListener = () =>{
       if(window.scrollY > 10){
-        console.log(window.scrollY>10)
+
         setBlackHeader(true);
       } else {
         setBlackHeader(false);
       }
     }
-
-
     window.addEventListener('scroll', scrollListener);
 
     return () => {
@@ -67,8 +65,21 @@ export default () => {
         {movieList.map((item, key)=>(
           <MovieRow key={key} title={item.title} items={item.items}/>
         ))}
-
       </section>
+      <footer>
+        Feito com <span role="img" aria-label='Heart'>❤</span> por B7 Web<br/>
+        Adaptado com ódio no <span role="img" aria-label='Heart'>❤</span> (brincadeirinha) por mim <a href='https://ingrid-akeida.netlify.app/' target='blank' className='link'>Ingrid Sanches</a><br/>
+        Projeto de estudo sem fins lucrativos<br/>
+        Direitos de imagem para <strong>Netflix</strong><br/>
+        Dados obtidos no site <a href='https://www.themoviedb.org/' target='blank' className='link'>TMDB</a> 
+
+      </footer>
+
+      {movieList <= 0 &&
+        <div className='loading'>
+          <img src='https://media.wired.com/photos/592744d3f3e2356fd800bf00/master/w_2560%2Cc_limit/Netflix_LoadTime.gif' alt='Loading'/>
+        </div>
+      }
     </div>
   );
 }
